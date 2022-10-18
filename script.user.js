@@ -3,7 +3,7 @@
 // @description A script that helps protect precious time online
 // @author DiamondSystems
 // @license MIT
-// @version 0.1
+// @version 0.13
 // @include *
 // @grant none
 // ==/UserScript==
@@ -14,9 +14,31 @@
     if (w.self !== w.top)
         return;
 
-    // if (! /https:\/\/www\.yourcity\.com/.test(w.location.href))
-    //     return; 
+    //--- get data
+    var otpData = localStorage.getItem('otpData');
 
-    alert("OK");
+    if (typeof otpData != 'string')
+        otpData = {a0:0};
+    else
+    {
+        otpData = JSON.parse(otpData);
+        if (typeof otpData.a0 == 'undefined' || otpData.a0 !== 0)
+            otpData = {a0:0};
+    }
+
+    var host = w.location.host;
+
+    if (typeof otpData[host] == "undefined")
+    {
+        otpData[host] = 1;
+    }
+    else
+    {
+        otpData[host]++;
+    }
+
+    localStorage.setItem('otpData', JSON.stringify(otpData));
+
+    console.log("TEST", otpData);
      
 })(window);
