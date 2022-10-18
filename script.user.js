@@ -15,7 +15,7 @@
         return;
 
     // if (! /https:\/\/www\.yourcity\.com/.test(w.location.href))
-    //     return;
+    //     return; 
 
     alert("OK");
      
